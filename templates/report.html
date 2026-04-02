@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Financial Report</h1>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Dashboard</a>
+            <a href="{{ url_for('add_expense') }}">Add Expense</a>
+            <a href="{{ url_for('onboarding') }}">Update Profile</a>
+        </div>
+
+        <div class="card">
+            <h2>Goal Overview</h2>
+            {% if profile %}
+                <p><strong>Main Goal:</strong> {{ profile['main_goal'] }}</p>
+                <p><strong>Goal Amount:</strong> ${{ profile['goal_amount'] }}</p>
+                <p><strong>Timeline:</strong> {{ profile['goal_timeline'] }}</p>
+                <p><strong>Biggest Pain Point:</strong> {{ profile['pain_point'] }}</p>
+                <p><strong>Hardest Category:</strong> {{ profile['overspend_category'] }}</p>
+            {% else %}
+                <p>No profile found.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>Weekly Spending Summary</h2>
+            <p><strong>Total for Last 7 Days:</strong> ${{ "%.2f"|format(weekly_total) }}</p>
+
+            {% if category_totals %}
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total</th>
+                    </tr>
+                    {% for row in category_totals %}
+                    <tr>
+                        <td>{{ row['category'] }}</td>
+                        <td>${{ "%.2f"|format(row['total']) }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No expense data in the last 7 days.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>AI-style Analysis</h2>
+            <p>{{ analysis }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Recent Weekly Expenses</h2>
+            {% if weekly_expenses %}
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Note</th>
+                    </tr>
+                    {% for expense in weekly_expenses %}
+                    <tr>
+                        <td>{{ expense['date'] }}</td>
+                        <td>${{ "%.2f"|format(expense['amount']) }}</td>
+                        <td>{{ expense['category'] }}</td>
+                        <td>{{ expense['note'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No recent expenses found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

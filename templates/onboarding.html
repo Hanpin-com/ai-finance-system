@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Financial Goal Onboarding</h1>
+        <p>Tell us about your needs and goals first.</p>
+
+        <form method="POST">
+            <label>Monthly Income</label>
+            <input type="number" step="0.01" name="monthly_income" required>
+
+            <label>Fixed Expenses</label>
+            <input type="number" step="0.01" name="fixed_expenses" required>
+
+            <label>Currently Saving?</label>
+            <select name="saving_status" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Sometimes">Sometimes</option>
+            </select>
+
+            <label>Main Financial Goal</label>
+            <select name="main_goal" required>
+                <option value="Emergency Fund">Emergency Fund</option>
+                <option value="Control Daily Spending">Control Daily Spending</option>
+                <option value="Travel Fund">Travel Fund</option>
+                <option value="Tuition Savings">Tuition Savings</option>
+                <option value="Reduce Impulse Buying">Reduce Impulse Buying</option>
+                <option value="First Savings Goal">First Savings Goal</option>
+            </select>
+
+            <label>Goal Amount</label>
+            <input type="number" step="0.01" name="goal_amount" required>
+
+            <label>Goal Timeline</label>
+            <select name="goal_timeline" required>
+                <option value="1 month">1 month</option>
+                <option value="3 months">3 months</option>
+                <option value="6 months">6 months</option>
+                <option value="12 months">12 months</option>
+            </select>
+
+            <label>Main Pain Point</label>
+            <select name="pain_point" required>
+                <option value="Impulse spending">Impulse spending</option>
+                <option value="Too much eating out">Too much eating out</option>
+                <option value="Don't know where money goes">Don't know where money goes</option>
+                <option value="No saving habit">No saving habit</option>
+                <option value="Overspending frequently">Overspending frequently</option>
+            </select>
+
+            <label>Which Category Is Hardest to Control?</label>
+            <select name="overspend_category" required>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Health">Health</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Advice Style</label>
+            <select name="advice_style" required>
+                <option value="Supportive">Supportive</option>
+                <option value="Direct">Direct</option>
+                <option value="Data-driven">Data-driven</option>
+            </select>
+
+            <button type="submit">Save Profile</button>
+        </form>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Go to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
