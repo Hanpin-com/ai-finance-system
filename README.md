@@ -98,6 +98,7 @@ ai-finance-system/
 
 ## Getting Started
 
+```mardown
 ### 1. Clone the repository
 
 git clone https://github.com/Hanpin-com/ai-finance-system.git
@@ -114,6 +115,7 @@ python app.py
 
 ### 5. Open in browser
 http://127.0.0.1:5000/
+```
 
 ---
 
@@ -168,6 +170,7 @@ deployment
 - Introduce machine learning models for insights  
 - Improve UI/UX design  
 - Deploy to cloud platform  
+```
 
 ## Author
 
