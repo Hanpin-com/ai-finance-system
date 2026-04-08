@@ -3,82 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+    <title>Weekly Report</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Weekly Financial Report</h1>
 
+    <div class="navbar">
+        <div class="brand">AI Finance System</div>
         <div class="nav-links">
             <a href="{{ url_for('home') }}">Dashboard</a>
             <a href="{{ url_for('add_expense') }}">Add Expense</a>
-            <a href="{{ url_for('onboarding') }}">Update Profile</a>
+            <a href="{{ url_for('report') }}">Report</a>
+            <a href="{{ url_for('onboarding') }}">Profile</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Weekly Report</h1>
+            <p>Review your recent spending activity and category trends.</p>
         </div>
 
-        <div class="card">
-            <h2>Goal Overview</h2>
-            {% if profile %}
-                <p><strong>Main Goal:</strong> {{ profile['main_goal'] }}</p>
-                <p><strong>Goal Amount:</strong> ${{ profile['goal_amount'] }}</p>
-                <p><strong>Timeline:</strong> {{ profile['goal_timeline'] }}</p>
-                <p><strong>Biggest Pain Point:</strong> {{ profile['pain_point'] }}</p>
-                <p><strong>Hardest Category:</strong> {{ profile['overspend_category'] }}</p>
-            {% else %}
-                <p>No profile found.</p>
-            {% endif %}
+        <h2 class="section-title">Weekly Summary</h2>
+        <div class="card-grid">
+            <div class="summary-card">
+                <div class="label">Total Spending (7 Days)</div>
+                <div class="value">${{ weekly_total }}</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="label">Main Goal</div>
+                <div class="value">
+                    {% if profile %}
+                        {{ profile["main_goal"] }}
+                    {% else %}
+                        No profile
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="label">Profile Category to Watch</div>
+                <div class="value">
+                    {% if profile %}
+                        {{ profile["overspend_category"] }}
+                    {% else %}
+                        No data
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Weekly Spending Summary</h2>
-            <p><strong>Total for Last 7 Days:</strong> ${{ "%.2f"|format(weekly_total) }}</p>
+        <div class="two-column-grid" style="margin-top: 20px;">
+            <div>
+                <h2 class="section-title">Expenses in the Last 7 Days</h2>
+                <div class="panel">
+                    {% if weekly_expenses %}
+                        <ul class="clean-list">
+                            {% for expense in weekly_expenses %}
+                                <li>
+                                    <div class="expense-date">{{ expense["date"] }}</div>
+                                    <div class="expense-main">
+                                        ${{ expense["amount"] }} — {{ expense["category"] }}
+                                        {% if expense["note"] %}
+                                            ({{ expense["note"] }})
+                                        {% endif %}
+                                    </div>
 
-            {% if category_totals %}
-                <table>
-                    <tr>
-                        <th>Category</th>
-                        <th>Total</th>
-                    </tr>
-                    {% for row in category_totals %}
-                    <tr>
-                        <td>{{ row['category'] }}</td>
-                        <td>${{ "%.2f"|format(row['total']) }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>No expense data in the last 7 days.</p>
-            {% endif %}
+                                    <div class="item-actions">
+                                        <a href="{{ url_for('edit_expense', expense_id=expense['id']) }}" class="edit-link">Edit</a>
+                                    </div>
+
+                                    <form action="{{ url_for('delete_expense', expense_id=expense['id']) }}" method="POST" class="delete-form">
+                                        <button type="submit" class="delete-btn"
+                                            onclick="return confirm('Are you sure you want to delete this expense?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="empty-text">No expenses recorded in the last 7 days.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <h2 class="section-title">Category Totals</h2>
+                <div class="panel">
+                    {% if category_totals %}
+                        <ul class="clean-list">
+                            {% for item in category_totals %}
+                                <li>
+                                    <div class="report-row">
+                                        <span>{{ item["category"] }}</span>
+                                        <strong>${{ item["total"] }}</strong>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="empty-text">No category totals available yet.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>AI-style Analysis</h2>
+        <h2 class="section-title">AI-Style Analysis</h2>
+        <div class="panel analysis-box">
             <p>{{ analysis }}</p>
         </div>
 
-        <div class="card">
-            <h2>Recent Weekly Expenses</h2>
-            {% if weekly_expenses %}
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Note</th>
-                    </tr>
-                    {% for expense in weekly_expenses %}
-                    <tr>
-                        <td>{{ expense['date'] }}</td>
-                        <td>${{ "%.2f"|format(expense['amount']) }}</td>
-                        <td>{{ expense['category'] }}</td>
-                        <td>{{ expense['note'] }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>No recent expenses found.</p>
-            {% endif %}
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Back to Dashboard</a>
+            <a href="{{ url_for('add_expense') }}">Add New Expense</a>
         </div>
     </div>
+
 </body>
 </html>

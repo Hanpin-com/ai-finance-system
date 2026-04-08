@@ -1,69 +1,99 @@
 # AI Finance System
 
-> 🚧 This project is currently in progress and actively being improved.
-
 ## Overview
 AI Finance System is a personal finance web application built with Flask and SQLite.
 
-The goal of this project is to demonstrate backend development, database design, and full-stack application flow for internship and job opportunities.
+This project is designed as a portfolio project for internship and job applications. It demonstrates backend development, database design, routing, CRUD operations, and full-stack application flow.
 
-This project is currently in progress and will be extended with analytics and AI-based finance insights.
+The current version focuses on financial profile onboarding, expense tracking, dashboard summaries, category analysis, and weekly reporting.
 
-## Features
+---
 
-### Current Features
+## Current Features
+
 - User onboarding flow
-- Add income and expense records
-- Dashboard overview
-- Monthly report page
+- Financial profile setup
+- Add expense records
+- View recent expenses
+- Edit expense records
+- Delete expense records
+- Dashboard summary
+- Category analysis
+- Weekly report with rule-based financial analysis
 - SQLite-based data storage
 - Flask backend routing and logic
 
-### Planned Features (Future)
-- Spending analytics
-- Category insights
-- Trend visualization
-- AI-based financial recommendations
+---
+
+## CRUD Functionality
+
+### Create
+- Create a financial profile through onboarding
+- Add new expense records
+
+### Read
+- View profile and expense summaries on the dashboard
+- View weekly spending report
+- View category totals and recent expenses
+
+### Update
+- Edit existing expense records
+
+### Delete
+- Delete expense records from the dashboard or report page
+
+---
 
 ## System Architecture
 
 ### Frontend
-- HTML templates (onboarding, dashboard, add expense, report)
-- CSS for styling
+- HTML templates:
+  - `onboarding.html`
+  - `dashboard.html`
+  - `add_expense.html`
+  - `edit_expense.html`
+  - `report.html`
+- CSS styling with `style.css`
 
 ### Backend
 - Flask (Python)
-- Handles routing, logic, and request processing
+- Handles routing, form submission, CRUD logic, and report generation
 
 ### Database
 - SQLite
-- Initialized via `init_db.py`
+- Initialized through `init_db.py`
 
 ### Application Flow
-User → Form Input → Flask Route → SQLite → Dashboard / Report Rendering
+User enters profile information → profile is stored in SQLite → user adds expenses → Flask processes requests → dashboard and report pages render updated financial data
+
+---
 
 ## Tech Stack
 
-- Python (Flask)
+- Python
+- Flask
 - SQLite
-- HTML / CSS
+- HTML
+- CSS
+
+---
 
 ## Project Structure
-```ai-finance-system/
-│
-├── app.py # Main Flask application
-├── init_db.py # Database initialization script
-├── finance.db # SQLite database
-├── requirements.txt # Dependencies
-│
-├── templates/ # HTML templates
-│ ├── onboarding.html
-│ ├── dashboard.html
-│ ├── add_expense.html
-│ ├── report.html
-│
-├── static/
-│ └── style.css # Stylesheet
+
+```
+ai-finance-system/
+├── app.py
+├── init_db.py
+├── requirements.txt
+├── finance.db
+├── templates/
+│   ├── onboarding.html
+│   ├── dashboard.html
+│   ├── add_expense.html
+│   ├── edit_expense.html
+│   └── report.html
+└── static/
+    └── style.css
 ```
 
 ## Getting Started
@@ -92,32 +122,45 @@ http://127.0.0.1:5000/
 ```markdown
 ## Demo Flow
 
-1. User completes onboarding  
-2. User adds income or expense  
-3. Data is stored in SQLite database  
-4. Dashboard displays summary  
-5. Report page shows financial overview  
+1. First-time user is redirected to onboarding
+2. User saves financial profile
+3. User accesses dashboard
+4. User adds expenses
+5. Dashboard updates summary and category analysis
+6. User can edit or delete expense records
+7. Weekly report shows recent spending and rule-based analysis 
 
 ## Project Purpose
 
 This project is not intended for monetization.
 
-It is designed as a portfolio project to demonstrate:
-- Backend development (Flask)
-- Database design (SQLite)
-- Full-stack application flow
-- Practical problem-solving
+It is built as a portfolio project to demonstrate:
+
+- Flask backend development
+- SQLite database design
+- CRUD implementation
+- financial data workflow
+- practical web app architecture
 
 ## Current Status
 
 🚧 In Progress
 
-The core structure and main pages are implemented.
+The current version includes:
 
-Currently improving:
-- Data flow between pages
-- UI/UX consistency
-- Project documentation
+onboarding flow
+expense CRUD
+dashboard UI
+category analysis
+weekly report
+
+Next planned improvements:
+
+login / logout / sign-up
+better analytics and charts
+stronger user-based data separation
+future AI-based financial insights
+deployment
 
 ## Future Improvements
 
