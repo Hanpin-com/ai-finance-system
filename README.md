@@ -1,5 +1,7 @@
 # AI Finance System
 
+> 🚧 This project is currently in progress and actively being improved.
+
 ## Overview
 AI Finance System is a personal finance web application built with Flask and SQLite.
 
